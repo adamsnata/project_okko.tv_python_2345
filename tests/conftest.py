@@ -51,6 +51,7 @@ def setup_browser(request):
         options=options
     )
     browser.config.driver = driver
+    browser.config.timeout = 20
     browser.config.window_height = 1200
     browser.config.window_width = 1900
     yield browser
@@ -66,4 +67,4 @@ def setup_browser(request):
 @pytest.fixture(scope='function', autouse=True)
 def open_browser(setup_browser):
     browser.open('https://okko.tv/')
-    time.sleep(10)
+    #time.sleep(10)
