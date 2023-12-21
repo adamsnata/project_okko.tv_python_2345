@@ -46,7 +46,7 @@ def setup_browser(request):
     url = os.getenv('URL')
 
     driver = webdriver.Remote(
-        command_executor=f'http://94.131.96.125:8080/wd/hub',
+        command_executor=f'http://{url}/wd/hub',
         #f"https://user1:1234@selenoid.autotests.cloud/wd/hub"
         options=options
     )

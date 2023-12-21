@@ -1,5 +1,8 @@
+import os
+
 import allure
 from allure_commons.types import AttachmentType
+from dotenv import load_dotenv
 
 
 def add_screenshot(browser):
@@ -18,7 +21,9 @@ def add_html(browser):
 
 
 def add_video(browser):
-    video_url = "http://94.131.96.125:8080/video/" + browser.driver.session_id + ".mp4"
+    load_dotenv()
+    url = os.getenv('URL')
+    video_url = f"http://{url}/video/" + browser.driver.session_id + ".mp4"
     html = "<html><body><video width='100%' height='100%' controls autoplay><source src='" \
            + video_url \
            + "' type='video/mp4'></video></body></html>"
