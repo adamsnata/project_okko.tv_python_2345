@@ -1,5 +1,6 @@
 import os
 import socket
+import time
 
 import pytest
 
@@ -50,6 +51,8 @@ def setup_browser(request):
         options=options
     )
     browser.config.driver = driver
+    browser.config.window_height = 1200
+    browser.config.window_width = 1900
     yield browser
 
     attach.add_screenshot(browser)
@@ -63,3 +66,4 @@ def setup_browser(request):
 @pytest.fixture(scope='function', autouse=True)
 def open_browser(setup_browser):
     browser.open('https://okko.tv/')
+    time.sleep(10)
