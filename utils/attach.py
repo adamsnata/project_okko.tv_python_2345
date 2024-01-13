@@ -23,8 +23,9 @@ def add_html(browser):
 def add_video(browser):
     load_dotenv()
     url = os.getenv('URL')
-    video_url = f"http://{url}/video/" + browser.driver.session_id + ".mp4"
+    video_url = f"https://selenoid.autotests.cloud/video/" + browser.driver.session_id + ".mp4"
     html = "<html><body><video width='100%' height='100%' controls autoplay><source src='" \
            + video_url \
            + "' type='video/mp4'></video></body></html>"
     allure.attach(html, 'video_' + browser.driver.session_id, AttachmentType.HTML, '.html')
+

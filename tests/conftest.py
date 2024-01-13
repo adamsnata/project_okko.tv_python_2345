@@ -28,9 +28,15 @@ def load_env():
 
 @pytest.fixture(scope='function', autouse=True)
 def setup_browser(request):
+    options = Options()
+
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu')
+
     browser_version = request.config.getoption('--browser_version')
     browser_version = browser_version if browser_version != "" else DEFAULT_BROWSER_VERSION
-    options = Options()
+    #options = Options()
     selenoid_capabilities = {
         "browserName": "chrome",
         "browserVersion": browser_version,
@@ -41,13 +47,11 @@ def setup_browser(request):
     }
     options.capabilities.update(selenoid_capabilities)
 
-   # login = os.getenv('LOGIN')
-   # password = os.getenv('PASSWORD')
     url = os.getenv('URL')
 
     driver = webdriver.Remote(
-        command_executor=f'http://{url}/wd/hub',
-        #f"https://user1:1234@selenoid.autotests.cloud/wd/hub"
+        #command_executor=f'http://{url}/wd/hub',
+        command_executor=f"https://user1:1234@selenoid.autotests.cloud/wd/hub",
         options=options
     )
     browser.config.driver = driver
@@ -62,6 +66,8 @@ def setup_browser(request):
     attach.add_video(browser)
 
     browser.quit()
+
+
 
 
 @pytest.fixture(scope='function', autouse=True)
